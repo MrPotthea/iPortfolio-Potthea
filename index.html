@@ -67,62 +67,9 @@
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
 
-  <!-- ===== Search & Quick Nav CSS ===== -->
+  <!-- Smooth scrolling for the anchor links -->
   <style>
     html { scroll-behavior: smooth; }
-
-    .quick-nav-widget {
-      position: fixed; top: 20px; right: 20px; z-index: 9999;
-      font-family: "Poppins", sans-serif;
-    }
-    .quick-nav-btn {
-      background: #040b15; color: #fff; border: 2px solid #149ddd;
-      width: 50px; height: 50px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-      transition: all 0.3s ease; font-size: 1.2rem;
-    }
-    .quick-nav-btn:hover { background: #149ddd; transform: scale(1.05); }
-
-    .quick-nav-panel {
-      position: absolute; top: 60px; right: 0; width: 300px;
-      background: #fff; border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      opacity: 0; visibility: hidden; transform: translateY(-15px);
-      transition: all 0.3s ease; overflow: hidden;
-    }
-    .quick-nav-panel.active { opacity: 1; visibility: visible; transform: translateY(0); }
-
-    .quick-nav-header {
-      display: flex; align-items: center;
-      padding: 12px 15px; border-bottom: 1px solid #eee; background: #f8f9fa;
-    }
-    .quick-nav-header .search-icon { color: #888; margin-right: 10px; }
-    .quick-nav-header input {
-      flex: 1; border: none; background: transparent; outline: none;
-      font-size: 0.95rem; color: #333;
-    }
-    .quick-nav-close {
-      background: none; border: none; color: #888; cursor: pointer;
-      padding: 5px; transition: color 0.2s;
-    }
-    .quick-nav-close:hover { color: #d9534f; }
-
-    .quick-nav-list {
-      list-style: none; margin: 0; padding: 0;
-      max-height: 300px; overflow-y: auto;
-    }
-    .quick-nav-list li { border-bottom: 1px solid #f1f1f1; }
-    .quick-nav-list li:last-child { border-bottom: none; }
-    .quick-nav-list a {
-      display: flex; align-items: center; padding: 12px 20px;
-      color: #333; text-decoration: none; font-size: 0.95rem;
-      font-weight: 500;
-      transition: background 0.2s, color 0.2s, padding-left 0.2s;
-    }
-    .quick-nav-list a i { margin-right: 12px; color: #149ddd; font-size: 1.1rem; }
-    .quick-nav-list a:hover { background: #f0f8ff; color: #149ddd; padding-left: 25px; }
-    .quick-nav-list li.hidden { display: none; }
   </style>
 
   <!-- ===== Structured Data ===== -->
@@ -668,72 +615,6 @@
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
-
-  <!-- ===== Search & Quick Nav JS ===== -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const navItems = [
-        { title: 'Home', href: '#hero', icon: 'bi-house' },
-        { title: 'About', href: '#about', icon: 'bi-person' },
-        { title: 'Resume', href: '#resume', icon: 'bi-file-earmark-text' },
-        { title: 'Portfolio', href: '#portfolio', icon: 'bi-images' },
-        { title: 'Services', href: '#services', icon: 'bi-hdd-stack' },
-        { title: 'Contact', href: '#contact', icon: 'bi-envelope' }
-      ];
-
-      const widget = document.getElementById('quickNavWidget');
-      const toggleBtn = document.getElementById('quickNavToggle');
-      const closeBtn = document.getElementById('quickNavClose');
-      const panel = document.getElementById('quickNavPanel');
-      const searchInput = document.getElementById('quickNavSearch');
-      const listContainer = document.getElementById('quickNavList');
-
-      navItems.forEach(item => {
-        const li = document.createElement('li');
-        li.innerHTML = `<a href="${item.href}"><i class="bi ${item.icon}"></i> ${item.title}</a>`;
-        listContainer.appendChild(li);
-      });
-
-      toggleBtn.addEventListener('click', () => {
-        panel.classList.toggle('active');
-        if (panel.classList.contains('active')) {
-          searchInput.focus();
-        }
-      });
-
-      closeBtn.addEventListener('click', () => {
-        panel.classList.remove('active');
-      });
-
-      document.addEventListener('click', (e) => {
-        if (!widget.contains(e.target)) {
-          panel.classList.remove('active');
-        }
-      });
-
-      searchInput.addEventListener('input', function() {
-        const filter = this.value.toLowerCase();
-        const listItems = listContainer.querySelectorAll('li');
-
-        listItems.forEach(li => {
-          const text = li.textContent.toLowerCase();
-          if (text.includes(filter)) {
-            li.classList.remove('hidden');
-          } else {
-            li.classList.add('hidden');
-          }
-        });
-      });
-
-      listContainer.addEventListener('click', function(e) {
-        if (e.target.closest('a')) {
-          panel.classList.remove('active');
-          searchInput.value = '';
-          listContainer.querySelectorAll('li').forEach(li => li.classList.remove('hidden'));
-        }
-      });
-    });
-  </script>
 
 </body>
 
